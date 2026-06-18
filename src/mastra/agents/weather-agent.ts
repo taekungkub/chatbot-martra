@@ -1,19 +1,9 @@
 import { Agent } from "@mastra/core/agent";
 import { createOllama } from "ai-sdk-ollama";
 import { weatherTool } from "../tools/weather-tool";
-import { Workspace } from "@mastra/core/workspace";
-import { LocalFilesystem } from "@mastra/core/workspace";
 
 const ollama = createOllama({
   baseURL: "http://localhost:11434",
-});
-
-const workspace = new Workspace({
-  filesystem: new LocalFilesystem({ basePath: "./workspace" }),
-  tools: {
-    enabled: true,
-    requireApproval: false,
-  },
 });
 
 export const weatherAgent = new Agent({
@@ -45,5 +35,4 @@ export const weatherAgent = new Agent({
       console.log(`Finished ${toolName}`, { output, error });
     },
   },
-  workspace,
 });

@@ -3,13 +3,13 @@ import { Mastra } from '@mastra/core';
 import { Agent, isDurableAgentLike, MessageList } from '@mastra/core/agent';
 import { createOllama } from 'ai-sdk-ollama';
 import { weatherTool } from './tools/b4bc6d92-f12a-40f7-b9ca-7294e2d7c184.mjs';
-import { Workspace, LocalFilesystem, LocalSkillSource } from '@mastra/core/workspace';
 import { searchTool } from './tools/a4d26af1-951c-4424-813e-e18f561ff459.mjs';
 import * as coreWorkflows from '@mastra/core/workflows';
 import { createWorkflow, createStep } from '@mastra/core/workflows';
 import z$2, { z } from 'zod';
 import { PinoLogger } from '@mastra/loggers';
 import { LibSQLStore } from '@mastra/libsql';
+import { Workspace, LocalFilesystem, LocalSkillSource } from '@mastra/core/workspace';
 import { readFile } from 'fs/promises';
 import * as https from 'https';
 import { request } from 'https';
@@ -56,13 +56,6 @@ import '@tavily/core';
 const ollama$1 = createOllama({
   baseURL: "http://localhost:11434"
 });
-const workspace$1 = new Workspace({
-  filesystem: new LocalFilesystem({ basePath: "./workspace" }),
-  tools: {
-    enabled: true,
-    requireApproval: false
-  }
-});
 const weatherAgent = new Agent({
   id: "weather-agent",
   name: "\u0E1C\u0E39\u0E49\u0E0A\u0E48\u0E27\u0E22\u0E1E\u0E22\u0E32\u0E01\u0E23\u0E13\u0E4C\u0E2D\u0E32\u0E01\u0E32\u0E28",
@@ -91,8 +84,7 @@ const weatherAgent = new Agent({
     afterToolCall: ({ toolName, output, error }) => {
       console.log(`Finished ${toolName}`, { output, error });
     }
-  },
-  workspace: workspace$1
+  }
 });
 
 const ollama = createOllama({
