@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node D:/workshop/ai-workshop/chatbot-martra/.claude/skills/mastra/scripts/provider-registry.mjs --list)",
+      "WebFetch(domain:mastra.ai)",
+      "WebFetch(domain:ai-sdk.dev)",
+      "Bash(bun add *)",
+      "Bash(bun tsc *)",
+      "Bash(xargs grep *)",
+      "Bash(ollama list *)"
+    ]
+  }
+}
